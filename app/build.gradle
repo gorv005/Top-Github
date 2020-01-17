@@ -14,7 +14,7 @@ android {
         versionCode 1
         versionName "1.0"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
-        buildConfigField("String", "SERVER_BASE_URL", "\"http://api.openweathermap.org/data/2.5/\"")
+        buildConfigField("String", "SERVER_BASE_URL", "\"https://github-trending-api.now.sh/\"")
         buildConfigField("String", "language", "\"java\"")
         buildConfigField("String", "since", "\"weekly\"")
 
@@ -73,4 +73,6 @@ dependencies {
 
     implementation 'gun0912.ted:tedpermission-rx2:2.2.2'
 
+    implementation 'androidx.recyclerview:recyclerview:1.0.0'
+    implementation "androidx.cardview:cardview:1.0.0"
 }

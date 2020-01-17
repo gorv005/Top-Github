@@ -20,6 +20,7 @@ import com.appstreet.top_github.interfaces.PermissionStatus
 import com.appstreet.top_github.utils.CommonInt.BLOCKED_OR_NEVER_ASKED
 import com.appstreet.top_github.utils.CommonInt.DENIED
 import com.appstreet.top_github.utils.CommonInt.GRANTED
+import com.appstreet.top_github.utils.UiUtils
 import com.tedpark.tedpermission.rx2.TedRx2Permission
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import kotlin.reflect.KClass
@@ -104,5 +105,10 @@ abstract class BaseActivity<T : ViewModel>(clazz: KClass<T>) : AppCompatActivity
     }
 
 
-
+    fun showProgressDialog(title: String?, message: String?, cancelable: Boolean = false) {
+        UiUtils.showProgressDialog(this, title, message, cancelable)
+    }
+    fun hideProgressDialog() {
+        UiUtils.dismissProgressDialog()
+    }
 }

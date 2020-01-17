@@ -1,3 +1,9 @@
 <resources>
     <string name="app_name">Top-Github</string>
+    <string name="subhead">subhead</string>
+    <string name="ok">Ok</string>
+    <string name="alert">Alert</string>
+    <string name="something_went_wrong">Something went wrong. Please try again</string>
+    <string name="please_wait">please wait…</string>
+
 </resources>

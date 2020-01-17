@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="errorTextSize">54sp</dimen>
+    <dimen name="paddingError">20dp</dimen>
+    <dimen name="marginButton">44dp</dimen>
+    <dimen name="dayTextSize">16sp</dimen>
+    <dimen name="tempsize">96sp</dimen>
+
+</resources>
