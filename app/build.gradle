@@ -14,6 +14,10 @@ android {
         versionCode 1
         versionName "1.0"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        buildConfigField("String", "SERVER_BASE_URL", "\"http://api.openweathermap.org/data/2.5/\"")
+        buildConfigField("String", "language", "\"java\"")
+        buildConfigField("String", "since", "\"weekly\"")
+
     }
     buildTypes {
         release {
@@ -32,4 +36,41 @@ dependencies {
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'androidx.test:runner:1.1.1'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.1.1'
+    implementation "com.google.android.material:material:$material_version"
+
+    testImplementation 'junit:junit:4.12'
+    androidTestImplementation 'androidx.test.ext:junit:1.1.1'
+    androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
+
+
+    implementation "org.koin:koin-core:$koin_version"
+    implementation "org.koin:koin-core-ext:$koin_version"
+    implementation "org.koin:koin-androidx-scope:$koin_version"
+    implementation "org.koin:koin-androidx-viewmodel:$koin_version"
+    implementation "org.koin:koin-androidx-ext:$koin_version"
+    //    endregion KOIN Dependency
+
+    implementation "com.github.bumptech.glide:glide:$glide_version"
+    implementation 'androidx.lifecycle:lifecycle-viewmodel-ktx:2.1.0'
+    //kapt "com.github.bumptech.glide:compiler:$glide_version"
+
+    //////////////////////////Some extra feature///////////////////////////
+    implementation "org.jetbrains.anko:anko:$anko_version"
+
+    //region RxJava for threading
+    implementation "io.reactivex.rxjava2:rxkotlin:$rxkotlin_version"
+    implementation "io.reactivex.rxjava2:rxandroid:$rxandroid_version"
+
+    //endregion
+
+    //region retrofit2 Dependency
+    /////////////////////////For REST API////////////////////////////////
+    implementation "com.squareup.retrofit2:retrofit:$retrofit_version"
+    implementation "com.squareup.retrofit2:converter-gson:$retrofit_version"
+    implementation "com.squareup.retrofit2:adapter-rxjava2:$retrofit_version"
+    implementation "com.squareup.okhttp3:logging-interceptor:$okhttp_version"
+    //endregion
+
+    implementation 'gun0912.ted:tedpermission-rx2:2.2.2'
+
 }
