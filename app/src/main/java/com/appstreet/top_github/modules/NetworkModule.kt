@@ -26,6 +26,7 @@ object NetworkModule {
     private const val ConnTime :Long= 1000
 
     fun provideDefaultOkhttpClient(): OkHttpClient {
+        
         return if (BuildConfig.DEBUG) {
             val logging = HttpLoggingInterceptor()
             logging.level = HttpLoggingInterceptor.Level.HEADERS

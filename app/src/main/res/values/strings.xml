@@ -5,5 +5,14 @@
     <string name="alert">Alert</string>
     <string name="something_went_wrong">Something went wrong. Please try again</string>
     <string name="please_wait">please wait…</string>
+    <string name="git_details">Git Details</string>
+    <string name="repo_details">Repo Details</string>
+    <string name="trans_user_image">User Image</string>
+    <string name="trans_user_name">trans_username</string>
+    <string name="trans_name">trans_name</string>
+    <string name="username">Username</string>
+    <string name="name">Name</string>
+    <string name="url">Url</string>
+    <string name="description">Description</string>
 
 </resources>

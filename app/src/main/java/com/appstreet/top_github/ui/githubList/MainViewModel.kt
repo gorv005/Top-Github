@@ -4,9 +4,8 @@ import androidx.lifecycle.MutableLiveData
 import com.appstreet.top_github.base.AbstractViewModel
 import com.appstreet.top_github.interfaces.SchedulerProvider
 import com.appstreet.top_github.model.SearchEvent
-import com.appstreet.top_github.model.TopGitubData
+import com.appstreet.top_github.model.TopGithubData
 import com.appstreet.top_github.utils.Logger
-import com.appstreet.top_github.utils.VisiblityEnum
 import com.forcast.demo.repository.MainRepository
 
 class MainViewModel(
@@ -14,7 +13,7 @@ class MainViewModel(
     private val scheduler: SchedulerProvider
 ) : AbstractViewModel() {
 
-    val githubList = MutableLiveData<List<TopGitubData>>()
+    val githubList = MutableLiveData<List<TopGithubData>>()
     val searchEvent = MutableLiveData<SearchEvent>()
 
 
