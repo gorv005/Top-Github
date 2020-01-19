@@ -5,7 +5,6 @@ import com.appstreet.top_github.base.AbstractViewModel
 import com.appstreet.top_github.interfaces.SchedulerProvider
 import com.appstreet.top_github.model.SearchEvent
 import com.appstreet.top_github.model.TopGithubData
-import com.appstreet.top_github.utils.Logger
 import com.forcast.demo.repository.MainRepository
 
 class MainViewModel(
@@ -29,7 +28,6 @@ class MainViewModel(
                 .subscribe({
                     githubList.value = it
                 }, {
-                    Logger.Debug(msg = it?.message.toString())
                     searchEvent.value = SearchEvent(isLoading = false, isSuccess = false)
 
                 })

@@ -7,7 +7,28 @@
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
         <item name="android:windowContentTransitions">true</item>
-
+        <item name="android:windowBackground">@color/colorPrimary</item>
+        <item name="android:windowSoftInputMode">stateHidden</item>
+        <item name="android:screenOrientation">portrait</item>
     </style>
 
+    <style name="ActionBar.SemiTransp" parent="Base.Widget.AppCompat.ActionBar">
+        <item name="displayOptions">showHome|showTitle</item>
+        <item name="background">@drawable/toolbar_bg</item>
+    </style>
+    <style name="AppTheme.NoActionBar">
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+    </style>
+    <style name="toolbarSize" parent="@style/Base.TextAppearance.AppCompat.Title">
+        <item name="android:textSize">20sp</item>
+    </style>
+    <style name="AppTheme.SemiTranspActionBar" parent="@style/AppTheme">
+        <item name="actionBarStyle">@style/ActionBar.SemiTransp</item>
+        <item name="windowActionBarOverlay">true</item>
+        <item name="android:windowDrawsSystemBarBackgrounds">true</item>
+        <item name="colorControlNormal">@color/white</item>
+        <item name="colorPrimary">@android:color/transparent</item>
+
+    </style>
 </resources>

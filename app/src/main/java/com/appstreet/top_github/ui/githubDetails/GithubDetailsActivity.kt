@@ -10,6 +10,7 @@ import com.appstreet.top_github.model.TopGithubData
 import com.appstreet.top_github.utils.AndroidUtils
 import com.appstreet.top_github.utils.image_loader.ImageLoader
 import kotlinx.android.synthetic.main.activity_github_details.*
+import kotlinx.android.synthetic.main.heading_layout.*
 
 class GithubDetailsActivity : AppCompatActivity() {
 
@@ -29,6 +30,7 @@ class GithubDetailsActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_github_details)
+        titleOne.text=AndroidUtils.getString(R.string.github_details)
         intent?.run {
             githubData = getParcelableExtra(KEY_GIT_DATA) as TopGithubData
 

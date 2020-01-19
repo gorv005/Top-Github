@@ -10,18 +10,26 @@ import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.appstreet.top_github.R
 import com.appstreet.top_github.base.BaseActivity
+import com.appstreet.top_github.interfaces.NetworkListener
 import com.appstreet.top_github.interfaces.OnClickItem
 import com.appstreet.top_github.model.TopGithubData
 import com.appstreet.top_github.ui.githubDetails.GithubDetailsActivity
 import com.appstreet.top_github.ui.githubList.adapter.AdapterGithubList
 import com.appstreet.top_github.utils.AndroidUtils
-import com.appstreet.top_github.utils.CommonUtil
-import com.appstreet.top_github.utils.Logger
+import com.appstreet.top_github.utils.CommonInt
+import com.appstreet.top_github.utils.Util
 import com.appstreet.top_github.utils.UiUtils
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : BaseActivity<MainViewModel>(MainViewModel::class),
-    OnClickItem<TopGithubData> {
+    OnClickItem<TopGithubData>, NetworkListener {
+    override fun tryAgain(boolean: Int) {
+        loadData()
+    }
+
+    override fun title(): String = getString(R.string.github_list)
+
+    override fun titleColor(): Int = R.color.white
     override fun onClick(
         position: Int,
         t: TopGithubData?,
@@ -29,27 +37,36 @@ class MainActivity : BaseActivity<MainViewModel>(MainViewModel::class),
         username: TextView,
         name: TextView
     ) {
-        if(Build.VERSION.SDK_INT>=Build.VERSION_CODES.LOLLIPOP) {
-            val imageViewPair = androidx.core.util.Pair.create<View, String>(imageView, getString(R.string.trans_user_image))
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            val imageViewPair = androidx.core.util.Pair.create<View, String>(
+                imageView,
+                getString(R.string.trans_user_image)
+            )
             val userNameViewPair =
-                androidx.core.util.Pair.create<View, String>(username, getString(R.string.trans_user_name))
+                androidx.core.util.Pair.create<View, String>(
+                    username,
+                    getString(R.string.trans_user_name)
+                )
             val nameViewPair =
-                androidx.core.util.Pair.create<View, String>(username, getString(R.string.trans_name))
+                androidx.core.util.Pair.create<View, String>(
+                    username,
+                    getString(R.string.trans_name)
+                )
 
-            val pairs=ArrayList<androidx.core.util.Pair<View,String>>()
+            val pairs = ArrayList<androidx.core.util.Pair<View, String>>()
             pairs.add(imageViewPair)
             pairs.add(userNameViewPair)
             pairs.add(nameViewPair)
 
-            val pairArray: Array<androidx.core.util.Pair<View,String>> = pairs.toTypedArray()
-            val options = ActivityOptionsCompat.makeSceneTransitionAnimation(this@MainActivity,*pairArray)
+            val pairArray: Array<androidx.core.util.Pair<View, String>> = pairs.toTypedArray()
+            val options =
+                ActivityOptionsCompat.makeSceneTransitionAnimation(this@MainActivity, *pairArray)
 
             startActivity(
                 GithubDetailsActivity.getIntent(this@MainActivity, dataItems?.get(position)),
                 options.toBundle()
             )
-        }
-        else{
+        } else {
             startActivity(
                 GithubDetailsActivity.getIntent(this@MainActivity, dataItems?.get(position))
             )
@@ -76,8 +93,11 @@ class MainActivity : BaseActivity<MainViewModel>(MainViewModel::class),
 
 
     private fun loadData() {
-        if (CommonUtil.isInternetAvailable(this)) {
+        if (Util.isInternetAvailable(this)) {
             model.loadingGitHubData()
+        } else {
+            Util.onShowDialog(this, this, CommonInt.One)
+
         }
     }
 
@@ -97,7 +117,6 @@ class MainActivity : BaseActivity<MainViewModel>(MainViewModel::class),
 
     private fun subscribeUI() {
         model.githubList.observe(this, Observer {
-            Logger.Debug("DEBUG", it.toString())
             dataItems = it
             adapterGithubList = AdapterGithubList(it, this@MainActivity, this@MainActivity)
 

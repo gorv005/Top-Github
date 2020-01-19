@@ -7,35 +7,19 @@ import android.net.NetworkCapabilities
 import android.os.Build
 import java.text.SimpleDateFormat
 import android.text.format.DateFormat;
+import android.view.Window
+import android.widget.Button
+import androidx.appcompat.app.AlertDialog
+import com.appstreet.top_github.R
+import com.appstreet.top_github.interfaces.NetworkListener
+import org.jetbrains.anko.layoutInflater
 import java.math.BigDecimal
 import java.math.RoundingMode
 
 
-object CommonUtil {
+object Util {
 
 
-    fun getDay(date:String?):String{
-        val format = SimpleDateFormat("yyyy-MM-dd HH:mm:ss")
-        val dayOfTheWeek = DateFormat.format("EEEE", format.parse(date)) as String // Thursday
-        return dayOfTheWeek
-    }
-
-    fun getTemperatureInCelcuis(temp:Double?):String{
-
-        val t = temp?.minus(273.15)
-
-        return BigDecimal(t!!).setScale(2, RoundingMode.HALF_EVEN).toString()+"C"
-
-
-    }
-    fun getTemperatureInCelcuisInt(temp:Double?):String{
-
-        val t = temp?.minus(273.15)
-
-        return BigDecimal(t!!).setScale(0, RoundingMode.HALF_EVEN).toString()+" C"
-
-
-    }
 
     @Suppress("DEPRECATION")
     fun isInternetAvailable(context: Context): Boolean {
@@ -64,6 +48,33 @@ object CommonUtil {
             }
         }
         return result
+    }
+    fun onShowDialog(context: Context, networkListener: NetworkListener, int: Int) {
+        val builder = AlertDialog.Builder(context)
+        val view = context.layoutInflater.inflate(R.layout.network_issue_layout, null)
+
+        val cancelButton = view.findViewById<Button>(R.id.cancel_button)
+        val tryAgain = view.findViewById<Button>(R.id.tryAgain)
+
+        builder.setView(view)
+        val dialog = builder.create()
+        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE)
+        dialog.setCanceledOnTouchOutside(false)
+        dialog.setCancelable(false)
+        dialog.show()
+
+        cancelButton.setOnClickListener {
+            dialog.dismiss()
+        }
+        tryAgain.setOnClickListener {
+            if(isInternetAvailable(context)) {
+                networkListener.tryAgain(int)
+                dialog.dismiss()
+            }
+        }
+
+
+
     }
 
     const val ONE = 1

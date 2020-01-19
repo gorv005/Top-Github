@@ -5,5 +5,9 @@
     <dimen name="marginButton">44dp</dimen>
     <dimen name="dayTextSize">16sp</dimen>
     <dimen name="tempsize">96sp</dimen>
+    <dimen name="padding4x2">8dp</dimen>
+    <dimen name="margin5x3">15dp</dimen>
+    <dimen name="margin5x2">10dp</dimen>
+    <dimen name="margin5x4">20dp</dimen>
 
 </resources>

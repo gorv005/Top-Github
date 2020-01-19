@@ -5,9 +5,10 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".ui.githubList.MainActivity">
+    <include layout="@layout/heading_layout"/>
 
     <androidx.recyclerview.widget.RecyclerView
-
+        android:layout_marginTop="?attr/actionBarSize"
         android:id="@+id/rv_github_list"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />

@@ -4,24 +4,32 @@ import android.annotation.SuppressLint
 import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
+import android.content.res.ColorStateList
+import android.graphics.PorterDuff
 import android.location.LocationManager
 import android.net.Uri
 import android.os.Bundle
 import android.provider.Settings
 import android.view.MenuItem
+import android.view.inputmethod.InputMethodManager
 import androidx.annotation.StringRes
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
+import androidx.core.widget.ImageViewCompat
 import androidx.lifecycle.ViewModel
 import com.appstreet.top_github.interfaces.LayoutImplemment
 import com.appstreet.top_github.interfaces.PermissionStatus
+import com.appstreet.top_github.utils.CommonInt
 import com.appstreet.top_github.utils.CommonInt.BLOCKED_OR_NEVER_ASKED
 import com.appstreet.top_github.utils.CommonInt.DENIED
 import com.appstreet.top_github.utils.CommonInt.GRANTED
 import com.appstreet.top_github.utils.UiUtils
 import com.tedpark.tedpermission.rx2.TedRx2Permission
+import kotlinx.android.synthetic.main.heading_layout.*
+import kotlinx.android.synthetic.main.toolbar_layout.*
+import org.jetbrains.anko.textColor
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import kotlin.reflect.KClass
 
@@ -35,11 +43,46 @@ abstract class BaseActivity<T : ViewModel>(clazz: KClass<T>) : AppCompatActivity
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(layout())
+
+        toolbar?.apply {
+            setSupportActionBar(toolbar)
+            supportActionBar?.run {
+                setDefaultDisplayHomeAsUpEnabled(true)
+                setDisplayHomeAsUpEnabled(true)
+                title = title()
+            }
+        }
+
+        back?.run {
+            ImageViewCompat.setImageTintMode(this, PorterDuff.Mode.SRC_ATOP)
+            ImageViewCompat.setImageTintList(
+                this,
+                ColorStateList.valueOf(ContextCompat.getColor(context, titleColor()))
+            )
+            setOnClickListener {
+                hideKeyboard()
+                finish()
+            }
+        }
+        titleOne?.run {
+            textColor = ContextCompat.getColor(context, titleColor())
+            text = title()
+        }
+
     }
 
+    protected fun hideKeyboard() {
+        val view = this.currentFocus
+        view?.let { v ->
+            val imm = getSystemService(Context.INPUT_METHOD_SERVICE) as? InputMethodManager
+            imm?.hideSoftInputFromWindow(v.windowToken, CommonInt.Zero)
+        }
+    }
 
-
-
+    override fun onBackPressed() {
+        hideKeyboard()
+        super.onBackPressed()
+    }
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         return if (item.itemId == android.R.id.home) {
             finish()
